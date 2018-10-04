@@ -15,7 +15,7 @@ class ctr_frutas extends CI_Controller
 		$color = $this->input->post("color");
 		$this->load->model("M_frutas");
 		$f = $this->M_frutas->guardar($nombre,$color);
-	
+		echo "funciono";
 	}
 }
 

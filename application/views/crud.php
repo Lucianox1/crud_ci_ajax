@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</form>
 	</div>
 	<div id="div_tabla" name="div_tabla">
-		
+		<p id="parrafo_mensaje">hola</p>
 	</div>
 </body>
 <script type="text/javascript">
@@ -38,12 +38,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				dataType: 'default',
 				data: {'nombre': nombre,'color': color},
 				success: function (data) { 
-					
-					$('#div_tabla').html(data);
+					$('#parrafo_mensaje').text(data);
 				},
         		error: function (jqXHR, textStatus, errorThrown) { 
         			
-        			$('#div_tabla').html(jqXHR);
+        			$('#parrafo_mensaje').text(jqXHR.responseText);
         		}
 			});
 			
