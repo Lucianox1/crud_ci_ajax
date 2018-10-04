@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<form method="POST">
 			<input type="text" placeholder="Nombre" name="txtnombre" id="txtnombre">
 			<input type="text" placeholder="Color" name="txtcolor" id="txtcolor">
-			<button id="btnguardar" name="btnguardar" type="submit" >Guardar</button>
+			<button id="btnguardar" name="btnguardar" >Guardar</button>
 		</form>
 	</div>
 	<div id="div_tabla" name="div_tabla">
@@ -27,7 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#btnguardar').click(function(){
+		$('#btnguardar').click(function(e){
+			e.preventDefault();
 			var nombre = $('#txtnombre').val();
 			var color = $('#txtcolor').val();
 
@@ -35,12 +36,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				url: '<?php base_url();?>ctr_frutas/guardar',
 				type: 'POST',
 				dataType: 'default',
-				data: {'nombre': nombre,'color':color},
+				data: {'nombre': nombre,'color': color},
 				success: function (data) { 
-					alert("funciono");
+					
+					$('#div_tabla').html(data);
 				},
         		error: function (jqXHR, textStatus, errorThrown) { 
-        			console.log(jqXHR);
+        			
+        			$('#div_tabla').html(jqXHR);
         		}
 			});
 			

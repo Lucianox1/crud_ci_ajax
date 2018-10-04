@@ -16,7 +16,7 @@ class M_frutas extends CI_Model
 	}
 
 
-	public function guardar($color, $nombre ,$id = null){
+	public function guardar($nombre, $color ,$id = null){
 		$this->id=$id;
 	    $this->color = $color;
 	    $this->nombre = $nombre;
