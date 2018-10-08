@@ -18,7 +18,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<form method="POST">
 			<input type="text" placeholder="Nombre" name="txtnombre" id="txtnombre">
 			<input type="text" placeholder="Color" name="txtcolor" id="txtcolor">
+			<button id="btncargar" name="btncargar" >Cargar</button>
 			<button id="btnguardar" name="btnguardar" >Guardar</button>
+			<button id="btnmodificar" name="btnmodificar" >Modificar</button>
 		</form>
 	</div>
 	<div id="div_tabla" name="div_tabla">
@@ -46,6 +48,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         		}
 			});
 			
+		});
+
+		$('#btncargar').click(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: '<?php base_url();?>ctr_frutas/cargar_todo',
+				type: 'POST',
+				success: function (data) { 
+					$('#parrafo_mensaje').text(data);
+				},
+        		error: function (jqXHR, textStatus, errorThrown) { 
+        			
+        			$('#parrafo_mensaje').text(jqXHR.responseText);
+        		}
+			});
+		});
+
+		$('#btnmodificar').click(function(){
+			var nombre = $('#txtnombre').val();
+			var color = $('#txtcolor').val();
+			$.ajax({
+				url: '<?php base_url();?>ctr_frutas/modificar',
+				type: 'POST',
+				dataType: 'default',
+				data: {'id': 38, 'nombre': nombre,'color': color},
+				success: function (data) { 
+					$('#parrafo_mensaje').text(data);
+				},
+        		error: function (jqXHR, textStatus, errorThrown) { 
+        			
+        			$('#parrafo_mensaje').text(jqXHR.responseText);
+        		}
+			});
 		});
 	});
 </script>

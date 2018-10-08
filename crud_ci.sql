@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2018 a las 04:14:47
+-- Tiempo de generación: 09-10-2018 a las 00:06:47
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -39,11 +39,7 @@ CREATE TABLE `frutas` (
 --
 
 INSERT INTO `frutas` (`id`, `nombre`, `color`) VALUES
-(1, 'roja', 'manzana'),
-(2, 'roja', 'manzana'),
-(3, 'roja', 'manzana'),
-(4, '', ''),
-(5, 'amarilla', 'pera');
+(38, 'ax3w', 'xxx');
 
 --
 -- Índices para tablas volcadas
@@ -63,7 +59,7 @@ ALTER TABLE `frutas`
 -- AUTO_INCREMENT de la tabla `frutas`
 --
 ALTER TABLE `frutas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

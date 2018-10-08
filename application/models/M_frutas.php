@@ -25,6 +25,19 @@ class M_frutas extends CI_Model
 
 	}
 
+	public function traer_todo(){
+		//$sql = "SELECT * FROM frutas";
+		//$resultado = $this->db->query->($sql);
+		//echo json_encode($data->result());
+		$query = $this->db->get('frutas');
+		return $query->result();
+	}
+
+	public function modificar($id,$nombre,$color){
+		$sql = "UPDATE frutas set nombre = '".$nombre."',color = '".$color."' WHERE id = ".$id;
+		$this->db->query($sql);
+	}
+
 }
 
 
