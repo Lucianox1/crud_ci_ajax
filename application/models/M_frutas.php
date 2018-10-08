@@ -38,6 +38,11 @@ class M_frutas extends CI_Model
 		$this->db->query($sql);
 	}
 
+	public function eliminar($id){
+		$sql = "DELETE FROM frutas WHERE id = ".$id;
+		$this->db->query($sql);
+	}
+
 }
 
 

@@ -36,10 +36,16 @@ class ctr_frutas extends CI_Controller
 		$color = $this->input->post("color");
 		$id = $this->input->post("id");
 		$this->M_frutas->modificar($id,$nombre,$color);
-		
+
 		/*if($consulta = $this->M_frutas->modificar($id,$nombre,$color)){
 			echo "objetivo modificado";
 		}*/
+	}
+
+	public function eliminar(){
+		$id = $this->input->post("id");
+		$this->M_frutas->eliminar($id);
+
 	}
 }
 
