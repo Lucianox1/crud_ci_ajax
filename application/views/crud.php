@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 	<div id="div_tabla" name="div_tabla">
 		<p id="parrafo_mensaje">hola</p>
+		
 	</div>
 </body>
 <script type="text/javascript">
@@ -57,6 +58,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				type: 'POST',
 				success: function (data) { 
 					$('#parrafo_mensaje').text(data);
+					$('#div_tabla').empty();
+					tabla = "<table><tr><th>Nombre</th><th>Color</th><th></th></tr>";
+					$.each(JSON.parse(data),function(index, obj) {
+						console.log(obj.nombre);
+						tabla += "<tr><td>"+obj.nombre+"</td><td>"+obj.color+"</td><td><button>Eliminar</button></td></tr>";
+					});
+					tabla += "</table>";
+					$('#div_tabla').append(tabla);
 				},
         		error: function (jqXHR, textStatus, errorThrown) { 
         			
