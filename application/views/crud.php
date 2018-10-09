@@ -38,20 +38,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			e.preventDefault();
 			var nombre = $('#txtnombre').val();
 			var color = $('#txtcolor').val();
-			alert(id_fruta);
+			//alert(id_fruta);
 			$.ajax({
 				url: '<?php base_url();?>ctr_frutas/guardar',
 				type: 'POST',
 				dataType: 'default',
 				data: {'nombre': nombre,'color': color, 'idf': id_fruta},
 				success: function (data) {
-					id_fruta = null;
+					
 				},
         		error: function (jqXHR, textStatus, errorThrown) { 
         			$('#parrafo_mensaje').text(jqXHR.responseText);
+        		},
+        		complete : function (xhr, status){
+        			id_fruta = null;
+        			cargar();
+
         		}
 			});
-		  cargar();
+		  
 		});
 
 		$('#btncargar').click(function(e){
@@ -72,6 +77,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				},
         		error: function (jqXHR, textStatus, errorThrown) { 
         			$('#parrafo_mensaje').text(jqXHR.responseText);
+        		},
+        		complete : function (xhr, status){
+        			cargar();
         		}
 			});
 		});
