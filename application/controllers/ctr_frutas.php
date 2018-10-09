@@ -16,31 +16,25 @@ class ctr_frutas extends CI_Controller
 	public function guardar(){
 		$nombre = $this->input->post("nombre");
 		$color = $this->input->post("color");
-		if (!empty($nombre) && !empty($color) ) {
-			$f = $this->M_frutas->guardar($nombre,$color);
+		$id = $this->input->post("idf");
+		if (!empty($nombre) && !empty($color) && empty($id)) {
+			$this->M_frutas->guardar($nombre,$color);
+		}elseif (!empty($nombre) && !empty($color) && !empty($id)) {
+			$this->M_frutas->modificar($id,$nombre,$color);
 		}
+	
+
+		
+
 		self::cargar_todo();
 	}
 
 	public function cargar_todo(){
 		$resultado = $this->M_frutas->traer_todo();
-		if(!empty($resultado)){
-			echo json_encode($resultado);
-		}else{
-			echo "vacio";
-		}
+		echo json_encode($resultado);
+
 	}
 
-	public function modificar(){
-		$nombre = $this->input->post("nombre");
-		$color = $this->input->post("color");
-		$id = $this->input->post("id");
-		$this->M_frutas->modificar($id,$nombre,$color);
-
-		/*if($consulta = $this->M_frutas->modificar($id,$nombre,$color)){
-			echo "objetivo modificado";
-		}*/
-	}
 
 	public function eliminar(){
 		$id = $this->input->post("id");

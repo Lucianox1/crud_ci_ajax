@@ -26,10 +26,8 @@ class M_frutas extends CI_Model
 	}
 
 	public function traer_todo(){
-		//$sql = "SELECT * FROM frutas";
-		//$resultado = $this->db->query->($sql);
-		//echo json_encode($data->result());
-		$query = $this->db->get('frutas');
+
+		$query = $this->db->query('SELECT * FROM frutas');
 		return $query->result();
 	}
 

@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<input type="text" placeholder="Color" name="txtcolor" id="txtcolor">
 			<button id="btncargar" name="btncargar" >Cargar</button>
 			<button id="btnguardar" name="btnguardar" >Guardar</button>
-			<button id="btnmodificar" name="btnmodificar" >Modificar</button>
+
 		</form>
 	</div>
 	<div id="div_tabla" name="div_tabla">
@@ -29,28 +29,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 </body>
 <script type="text/javascript">
+	var id_fruta = null;
+
 	$(document).ready(function(){
+	
 
 		$('#btnguardar').click(function(e){
 			e.preventDefault();
 			var nombre = $('#txtnombre').val();
 			var color = $('#txtcolor').val();
-
+			alert(id_fruta);
 			$.ajax({
 				url: '<?php base_url();?>ctr_frutas/guardar',
 				type: 'POST',
 				dataType: 'default',
-				data: {'nombre': nombre,'color': color},
-				success: function (data) { 
-					
+				data: {'nombre': nombre,'color': color, 'idf': id_fruta},
+				success: function (data) {
+					id_fruta = null;
 				},
         		error: function (jqXHR, textStatus, errorThrown) { 
-        			
         			$('#parrafo_mensaje').text(jqXHR.responseText);
         		}
 			});
 		  cargar();
-
 		});
 
 		$('#btncargar').click(function(e){
@@ -61,51 +62,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$('html').on("click",'.btn_eliminar',function(){
 			
 			var id = this.id;
-
+			//setTimeout(cargar(),500);
 			$.ajax({
 				url: '<?php base_url();?>ctr_frutas/eliminar',
 				type: 'POST',
 				dataType: 'default',
 				data: {'id': id},
 				success: function (data) { 
-					
 				},
         		error: function (jqXHR, textStatus, errorThrown) { 
         			$('#parrafo_mensaje').text(jqXHR.responseText);
         		}
 			});
-			cargar();
 		});
 
-		$('#btnmodificar').click(function(){
-			var nombre = $('#txtnombre').val();
-			var color = $('#txtcolor').val();
-			$.ajax({
-				url: '<?php base_url();?>ctr_frutas/modificar',
-				type: 'POST',
-				dataType: 'default',
-				data: {'id': 38, 'nombre': nombre,'color': color},
-				success: function (data) { 
-					$('#parrafo_mensaje').text(data);
-				},
-        		error: function (jqXHR, textStatus, errorThrown) { 
-        			
-        			$('#parrafo_mensaje').text(jqXHR.responseText);
-        		}
-			});
-			cargar();
+		$('html').on("click",".btnmodificar",function(){
+
+			$('#txtnombre').val($(this).parents("tr").find("td").eq(0).text());
+			$('#txtcolor').val($(this).parents("tr").find("td").eq(1).text());
+			id_fruta = this.id;
+			
 		});
+
+
 
 		function cargar(){
+
+			$('#txtnombre').val('');
+			$('#txtcolor').val('');
+
 			$.ajax({
 				url: '<?php base_url();?>ctr_frutas/cargar_todo',
 				type: 'POST',
-				success: function (data) { 
+				success: function (data) {
+					var tabla = ""; 
 					$('#div_tabla').empty();
 					tabla = "<table><tr><th>Nombre</th><th>Color</th><th></th></tr>";
 					$.each(JSON.parse(data),function(index, obj) {
 						//console.log(obj.nombre);
-						tabla += "<tr><td>"+obj.nombre+"</td><td>"+obj.color+"</td><td><button class='btn_eliminar' id="+obj.id+" >eliminar</button></td></tr>";
+						tabla += "<tr><td>"+obj.nombre+"</td><td>"+obj.color+"</td><td><button class='btn_eliminar' id="+obj.id+" >eliminar</button><button class='btnmodificar' id="+obj.id+" >modificar</button></td></tr>";
 					});
 					tabla += "</table>";
 					$('#div_tabla').append(tabla);
@@ -114,6 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         			$('#parrafo_mensaje').text(jqXHR.responseText);
         		}
 			});
+			
 		}
 	});
 </script>
