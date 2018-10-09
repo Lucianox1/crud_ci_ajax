@@ -8,18 +8,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="UTF-8">
 	<title>Crud con codeigniter</title>
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 </head>
-<body>
+<body class="container">
 	<div>
 		<form method="POST">
 			<input type="text" placeholder="Nombre" name="txtnombre" id="txtnombre">
 			<input type="text" placeholder="Color" name="txtcolor" id="txtcolor">
-			<button id="btncargar" name="btncargar" >Cargar</button>
-			<button id="btnguardar" name="btnguardar" >Guardar</button>
+			<button id="btncargar" name="btncargar" class="btn btn-primary">Cargar</button>
+			<button id="btnguardar" name="btnguardar" class="btn btn-primary">Guardar</button>
 
 		</form>
 	</div>
@@ -27,6 +25,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<p id="parrafo_mensaje">hola</p>
 		
 	</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 <script type="text/javascript">
 	var id_fruta = null;
@@ -64,8 +69,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			cargar();
 		});
 
-		$('html').on("click",'.btn_eliminar',function(){
-			
+		$('html').on("click",'.btn_eliminar',function(e){
+			e.preventDefault();
 			var id = this.id;
 			//setTimeout(cargar(),500);
 			$.ajax({
@@ -84,8 +89,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			});
 		});
 
-		$('html').on("click",".btnmodificar",function(){
-
+		$('html').on("click",".btnmodificar",function(e){
+			e.preventDefault();
 			$('#txtnombre').val($(this).parents("tr").find("td").eq(0).text());
 			$('#txtcolor').val($(this).parents("tr").find("td").eq(1).text());
 			id_fruta = this.id;
@@ -105,10 +110,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				success: function (data) {
 					var tabla = ""; 
 					$('#div_tabla').empty();
-					tabla = "<table><tr><th>Nombre</th><th>Color</th><th></th></tr>";
+					tabla = "<table class'table'><thead class='thead-light'><tr scope='col'><thscope='col'>Nombre</th><th scope='col'>Color</th><th scope='col'></th></tr></thead>";
 					$.each(JSON.parse(data),function(index, obj) {
 						//console.log(obj.nombre);
-						tabla += "<tr><td>"+obj.nombre+"</td><td>"+obj.color+"</td><td><button class='btn_eliminar' id="+obj.id+" >eliminar</button><button class='btnmodificar' id="+obj.id+" >modificar</button></td></tr>";
+						tabla += "<tr><th scope='row'>1</th><td>"+obj.nombre+"</td><td>"+obj.color+"</td><td><button class='btn_eliminar btn btn-danger' id="+obj.id+" >eliminar</button><button class='btnmodificar btn btn-success' id="+obj.id+" >modificar</button></td></tr>";
 					});
 					tabla += "</table>";
 					$('#div_tabla').append(tabla);
@@ -121,4 +126,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 	});
 </script>
+
 </html>
